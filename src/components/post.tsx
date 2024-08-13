@@ -4,8 +4,8 @@ function Post(props: { author: string, body: string }) {
     return (
         <li>
             <div className={classes.post}>
-                <div className='author'>{props.author}</div>
-                <div className='text'> {props.body}</div>
+                <div className={classes.author}>{props.author}</div>
+                <div className={classes.text}> {props.body}</div>
             </div>
         </li>
     )
