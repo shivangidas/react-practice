@@ -1,34 +1,28 @@
-import { useState } from "react";
-import NewPost from "./newPost"
-import Post from "./post"
-import classes from "./postlist.module.css"
-
-const posts = [{ author: "Shivangi", body: "this is fun" }, { author: "Shiv", body: "I need a nap" }]
+import { useLoaderData } from "react-router-dom";
+import NewPost from "../routes/newPost";
+import Post from "./post";
+import classes from "./postlist.module.css";
+import Modal from "./Modal";
 
 function PostList() {
-    const [textBody, setTextBody] = useState("");
-    const [author, setAuthor] = useState("");
+  const posts = useLoaderData();
 
-    function changeBodyHandler(event: { target: { value: string; }; }) {
-        setTextBody(event.target.value);
-    }
-    function changeAuthorHandler(event: { target: { value: string; }; }) {
-        setAuthor(event.target.value);
-    }
-    return (
-        <>
-            <NewPost onBodyChange={changeBodyHandler} onNameChange={changeAuthorHandler} />
-            <ul className={classes.posts}>
-                {posts.map(function (data) {
-                    return (
-                        <Post author={data.author} body={data.body} />
-                    )
-                })}
-                <Post author={author} body={textBody} />
-            </ul>
-        </>
-
-    )
+  return (
+    <>
+      {posts.length > 0 && (
+        <ul className={classes.posts}>
+          {posts.map(function (data) {
+            return (
+              <Post author={data.author} body={data.body} key={data.body} />
+            );
+          })}
+        </ul>
+      )}
+      {posts.length === 0 && (
+        <p style={{ color: "white", font: "bold" }}>There are no posts</p>
+      )}
+    </>
+  );
 }
 
-export default PostList
+export default PostList;
