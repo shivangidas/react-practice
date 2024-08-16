@@ -1,8 +1,6 @@
 import { useLoaderData } from "react-router-dom";
-import NewPost from "../routes/newPost";
 import Post from "./post";
 import classes from "./postlist.module.css";
-import Modal from "./Modal";
 
 function PostList() {
   const posts = useLoaderData();
@@ -13,7 +11,12 @@ function PostList() {
         <ul className={classes.posts}>
           {posts.map(function (data) {
             return (
-              <Post author={data.author} body={data.body} key={data.body} />
+              <Post
+                author={data.author}
+                body={data.body}
+                key={data.id}
+                id={data.id}
+              />
             );
           })}
         </ul>
