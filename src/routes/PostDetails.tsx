@@ -4,7 +4,7 @@ import Modal from "../components/Modal";
 import classes from "./PostDetails.module.css";
 
 function PostDetails() {
-  const post = useLoaderData();
+  const post = useLoaderData() as unknown as { author: string, body: string };
 
   if (!post) {
     return (
@@ -33,7 +33,8 @@ function PostDetails() {
 
 export default PostDetails;
 
-export async function loader({ params }) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export async function loader({ params }: { params: any }) {
   const response = await fetch("http://localhost:8080/posts/" + params.id);
   const resData = await response.json();
   return resData.post;
